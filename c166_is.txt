@@ -1,0 +1,389 @@
+#
+# c166 instructions set
+#
+# Derived from m166ism.pdf - Instruction Set Manual for the
+# C16x Family of Siemens 16-Bit CMOS Single-Chip Microcontrollers
+# Instruction Set Manual Version 1.2, 12.97
+#
+#
+# cRw(n)		R0, R1, R2, ... R15
+# cRb(n)		RL0, RH0, RL1, ... RH7
+# cregb(RR)		SFR/GPR (byte)
+# cregw(RR)		SFR/GPR (word)
+# cmem(MMMM)		1234H
+# cbitaddr(QQ,q)	-
+# cbitoff(QQ)
+# cirang2(:..##)
+# cdata3(:.###)
+# cdata4(#)
+# cdata8(##)
+# cdata16(####)
+# cmask8(@@)
+# ccaddr(MMMM)
+# cseg(SS)
+# crel(rr)
+# ctrap7(
+# ccc(cc)		CC_UC, CC_NZ, ...
+#
+# OC	LEN	PATTERN					MNEMONIC
+#
+
+# ADD
+00	2	([01]{4})([01]{4})			"ADD      ".cRw($A).",".cRw($B)
+08	2	([01]{4})10([01]{2})			"ADD      ".cRw($A).",[".cRw($B)."]"
+08	2	([01]{4})11([01]{2})			"ADD      ".cRw($A).",[".cRw($B)."+]"
+08	2	([01]{4})0([01]{3})			"ADD      ".cRw($A).",".cdata3($B)
+06	4	([01]{8})([01]{16})			"ADD      ".cregw($A).",".cdata16($B)
+02	4	([01]{8})([01]{16})			"ADD      ".cregw($A).",".cmem($B)
+04	4	([01]{8})([01]{16})			"ADD      ".cmem($B).",".cregw($A)
+# ADDB
+01	2	([01]{4})([01]{4})			"ADDB     ".cRb($A).",".cRb($B)
+09	2	([01]{4})10([01]{2})			"ADDB     ".cRb($A).",[".cRw($B)."]"
+09	2	([01]{4})11([01]{2})			"ADDB     ".cRb($A).",[".cRw($B)."+]"
+09	2	([01]{4})0([01]{3})			"ADDB     ".cRb($A).",".cdata3($B)
+07	4	([01]{8})([01]{16})			"ADDB     ".cregb($A).",".cdata16($B)
+03	4	([01]{8})([01]{16})			"ADDB     ".cregb($A).",".cmem($B)
+05	4	([01]{8})([01]{16})			"ADDB     ".cmem($B).",".cregb($A)
+# ADDC
+10	2	([01]{4})([01]{4})			"ADDC     ".cRw($A).",".cRw($B)
+18	2	([01]{4})10([01]{2})			"ADDC     ".cRw($A).",[".cRw($B)."]"
+18	2	([01]{4})11([01]{2})			"ADDC     ".cRw($A).",[".cRw($B)."+]"
+18	2	([01]{4})0([01]{3})			"ADDC     ".cRw($A).",".cdata3($B)
+16	4	([01]{8})([01]{16})			"ADDC     ".cregw($A).",".cdata16($B)
+12	4	([01]{8})([01]{16})			"ADDC     ".cregw($A).",".cmem($B)
+14	4	([01]{8})([01]{16})			"ADDC     ".cmem($B).",".cregw($A)
+# ADDCB
+11	2	([01]{4})([01]{4})			"ADDCB    ".cRb($A).",".cRb($B)
+19	2	([01]{4})10([01]{2})			"ADDCB    ".cRb($A).",[".cRw($B)."]"
+19	2	([01]{4})11([01]{2})			"ADDCB    ".cRb($A).",[".cRw($B)."+]"
+19	2	([01]{4})0([01]{3})			"ADDCB    ".cRb($A).",".cdata3($B)
+17	4	([01]{8})([01]{16})			"ADDCB    ".cregb($A).",".cdata16($B)
+13	4	([01]{8})([01]{16})			"ADDCB    ".cregb($A).",".cmem($B)
+15	4	([01]{8})([01]{16})			"ADDCB    ".cmem($B).",".cregb($A)
+# AND 
+60	2	([01]{4})([01]{4})			"AND      ".cRw($A).",".cRw($B)
+68	2	([01]{4})10([01]{2})			"AND      ".cRw($A).",[".cRw($B)."]"
+68	2	([01]{4})11([01]{2})			"AND      ".cRw($A).",[".cRw($B)."+]"
+68	2	([01]{4})0([01]{3})			"AND      ".cRw($A).",".cdata3($B)
+66	4	([01]{8})([01]{16})			"AND      ".cregw($A).",".cdata16($B)
+62	4	([01]{8})([01]{16})			"AND      ".cregw($A).",".cmem($B)
+64	4	([01]{8})([01]{16})			"AND      ".cmem($B).",".cregw($A)
+# ANDB 
+61	2	([01]{4})([01]{4})			"ANDB     ".cRb($A).",".cRb($B)
+69	2	([01]{4})10([01]{2})			"ANDB     ".cRb($A).",[".cRw($B)."]"
+69	2	([01]{4})11([01]{2})			"ANDB     ".cRb($A).",[".cRw($B)."+]"
+69	2	([01]{4})0([01]{3})			"ANDB     ".cRb($A).",".cdata3($B)
+67	4	([01]{8})([01]{16})			"ANDB     ".cregb($A).",".cdata16($B)
+63	4	([01]{8})([01]{16})			"ANDB     ".cregb($A).",".cmem($B)
+65	4	([01]{8})([01]{16})			"ANDB     ".cmem($B).",".cregb($A)
+# ASHR
+AC	2	([01]{4})([01]{4})			"ASHR     ".cRw($A).",".cRw($B)
+BC	2	([01]{4})([01]{4})			"ASHR     ".cRw($B).",".cdata4($A)
+# ATOMIC (see EXTR)
+D1	2	00([01]{2})0000				"ATOMIC   ".cirang2($A)
+# BAND
+6A	4	([01]{8})([01]{8})([01]{4})([01]{4})	"BAND     ".cbitaddr($B,$D).",".cbitaddr($A,$C)
+# BCLR
+0E	2	([01]{8})				"BCLR     ".cbitaddr($A,"0000")
+1E	2	([01]{8})				"BCLR     ".cbitaddr($A,"0001")
+2E	2	([01]{8})				"BCLR     ".cbitaddr($A,"0010")
+3E	2	([01]{8})				"BCLR     ".cbitaddr($A,"0011")
+4E	2	([01]{8})				"BCLR     ".cbitaddr($A,"0100")
+5E	2	([01]{8})				"BCLR     ".cbitaddr($A,"0101")
+6E	2	([01]{8})				"BCLR     ".cbitaddr($A,"0110")
+7E	2	([01]{8})				"BCLR     ".cbitaddr($A,"0111")
+8E	2	([01]{8})				"BCLR     ".cbitaddr($A,"1000")
+9E	2	([01]{8})				"BCLR     ".cbitaddr($A,"1001")
+AE	2	([01]{8})				"BCLR     ".cbitaddr($A,"1010")
+BE	2	([01]{8})				"BCLR     ".cbitaddr($A,"1011")
+CE	2	([01]{8})				"BCLR     ".cbitaddr($A,"1100")
+DE	2	([01]{8})				"BCLR     ".cbitaddr($A,"1101")
+EE	2	([01]{8})				"BCLR     ".cbitaddr($A,"1110")
+FE	2	([01]{8})				"BCLR     ".cbitaddr($A,"1111")
+# BCMP
+2A	4	([01]{8})([01]{8})([01]{4})([01]{4})	"BCMP     ".cbitaddr($B,$D).",".cbitaddr($A,$C)
+# BFLDH
+1A	4	([01]{8})([01]{8})([01]{8})		"BFLDH    ".cbitoff($A).",".cmask8($C).",".cdata8($B)
+# BFLDL
+0A	4	([01]{8})([01]{8})([01]{8})		"BFLDL    ".cbitoff($A).",".cmask8($C).",".cdata8($B)
+# BMOV
+4A	4	([01]{8})([01]{8})([01]{4})([01]{4})	"BMOV     ".cbitaddr($B,$D).",".cbitaddr($A,$C)
+# BMOVN
+3A	4	([01]{8})([01]{8})([01]{4})([01]{4})	"BMOVN    ".cbitaddr($B,$D).",".cbitaddr($A,$C)
+# BOR
+5A	4	([01]{8})([01]{8})([01]{4})([01]{4})	"BOR      ".cbitaddr($B,$D).",".cbitaddr($A,$C)
+# BSET
+0F	2	([01]{8})				"BSET     ".cbitaddr($A,"0000")
+1F	2	([01]{8})				"BSET     ".cbitaddr($A,"0001")
+2F	2	([01]{8})				"BSET     ".cbitaddr($A,"0010")
+3F	2	([01]{8})				"BSET     ".cbitaddr($A,"0011")
+4F	2	([01]{8})				"BSET     ".cbitaddr($A,"0100")
+5F	2	([01]{8})				"BSET     ".cbitaddr($A,"0101")
+6F	2	([01]{8})				"BSET     ".cbitaddr($A,"0110")
+7F	2	([01]{8})				"BSET     ".cbitaddr($A,"0111")
+8F	2	([01]{8})				"BSET     ".cbitaddr($A,"1000")
+9F	2	([01]{8})				"BSET     ".cbitaddr($A,"1001")
+AF	2	([01]{8})				"BSET     ".cbitaddr($A,"1010")
+BF	2	([01]{8})				"BSET     ".cbitaddr($A,"1011")
+CF	2	([01]{8})				"BSET     ".cbitaddr($A,"1100")
+DF	2	([01]{8})				"BSET     ".cbitaddr($A,"1101")
+EF	2	([01]{8})				"BSET     ".cbitaddr($A,"1110")
+FF	2	([01]{8})				"BSET     ".cbitaddr($A,"1111")
+# BXOR
+7A	4	([01]{8})([01]{8})([01]{4})([01]{4})	"BXOR     ".cbitaddr($B,$D).",".cbitaddr($A,$C)
+# CALLA
+CA	4	([01]{4})0000([01]{16})			"CALLA    ".ccc($A).",".ccaddr($B)
+# CALLI
+AB	2	([01]{4})([01]{4})			"CALLI    ".ccc($A).",[".cRw($B)."]"
+# CALLR
+BB	2	([01]{8})				"CALLR    ".crel($A)
+# CALLS
+DA	4	([01]{8})([01]{16})			"CALLS    ".cseg($A)."'".ccaddr($B)
+# CMP
+40	2	([01]{4})([01]{4})			"CMP      ".cRw($A).",".cRw($B)
+48	2	([01]{4})10([01]{2})			"CMP      ".cRw($A).",[".cRw($B)."]"
+48	2	([01]{4})11([01]{2})			"CMP      ".cRw($A).",[".cRw($B)."+]"
+48	2	([01]{4})0([01]{3})			"CMP      ".cRw($A).",".cdata3($B)
+46	4	([01]{8})([01]{16})			"CMP      ".cregw($A).",".cdata16($B)
+42	4	([01]{8})([01]{16})			"CMP      ".cregw($A).",".cmem($B)
+# CMPB
+41	2	([01]{4})([01]{4})			"CMPB     ".cRb($A).",".cRb($B)
+49	2	([01]{4})10([01]{2})			"CMPB     ".cRb($A).",[".cRw($B)."]"
+49	2	([01]{4})11([01]{2})			"CMPB     ".cRb($A).",[".cRw($B)."+]"
+49	2	([01]{4})0([01]{3})			"CMPB     ".cRb($A).",".cdata3($B)
+47	4	([01]{8})([01]{16})			"CMPB     ".cregb($A).",".cdata16($B)
+43	4	([01]{8})([01]{16})			"CMPB     ".cregb($A).",".cmem($B)
+# CMPD1
+A0	2	([01]{4})([01]{4})			"CMPD1    ".cRw($B).",".cdata4($A)
+A6	4	1111([01]{4})([01]{16})			"CMPD1    ".cRw($A).",".cdata16($B)
+A2	4	1111([01]{4})([01]{16})			"CMPD1    ".cRw($A).",".cmem($B)
+# CMPD2
+B0	2	([01]{4})([01]{4})			"CMPD2    ".cRw($B).",".cdata4($A)
+B6	4	1111([01]{4})([01]{16})			"CMPD2    ".cRw($A).",".cdata16($B)
+B2	4	1111([01]{4})([01]{16})			"CMPD2    ".cRw($A).",".cmem($B)
+# CMPI1
+80	2	([01]{4})([01]{4})			"CMPI1    ".cRw($B).",".cdata4($A)
+86	4	1111([01]{4})([01]{16})			"CMPI1    ".cRw($A).",".cdata16($B)
+82	4	1111([01]{4})([01]{16})			"CMPI1    ".cRw($A).",".cmem($B)
+# CMPI2
+90	2	([01]{4})([01]{4})			"CMPI2    ".cRw($B).",".cdata4($A)
+96	4	1111([01]{4})([01]{16})			"CMPI2    ".cRw($A).",".cdata16($B)
+92	4	1111([01]{4})([01]{16})			"CMPI2    ".cRw($A).",".cmem($B)
+# CPL
+91	2	([01]{4})0000				"CPL      ".cRw($A)
+# CPLB
+B1	2	([01]{4})0000				"CPL      ".cRb($A)
+# DISWDT
+A5	4	010110101010010110100101		"DISWDT"
+# DIV
+4B	2	([01]{4})\1				"DIV      ".cRw($A)
+# DIVL
+6B	2	([01]{4})\1				"DIVL     ".cRw($A)
+# DIVLU
+7B	2	([01]{4})\1				"DIVLU    ".cRw($A)
+# DIVU
+5B	2	([01]{4})\1				"DIVU     ".cRw($A)
+# EINIT
+B5	4	010010101011010110110101		"EINIT"
+# EXTR (see ATOMIC)
+D1	2	10([01]{2})0000				"EXTR     ".cirang2($A)
+# EXTP
+DC	2	01([01]{2})([01]{4})			"EXTP     ".cRw($B).",".cirang2($A)
+D7	4	01([01]{2})([01]{4})			"INCOMPLETE EXTP     ".cRw($B).",".cirang2($A)
+# EXTPR
+DC	2	11([01]{2})([01]{4})			"EXTPR    ".cRw($B).",".cirang2($A)
+D7	4	11([01]{2})([01]{4})			"INCOMPLETE EXTPR     ".cRw($B).",".cirang2($A)
+# EXTS
+DC	2	00([01]{2})([01]{4})			"EXTS     ".cRw($B).",".cirang2($A)
+D7	4	00([01]{2})0000([01]{8})00000000	"EXTS     ".cseg($B)."'".cirang2($A)
+# EXTSR
+DC	2	10([01]{2})([01]{4})			"EXTSR    ".cRw($B).",".cirang2($A)
+D7	4	10([01]{2})0000([01]{8})00000000	"EXTSR    ".cseg($B)."'".cirang2($A)
+# IDLE
+87	4	011110001000011110000111		"IDLE"
+# JB
+8A	4	([01]{8})([01]{8})([01]{4})0000		"JB       ".cbitaddr($A,$C).",".crel($B)
+# JBC
+AA	4	([01]{8})([01]{8})([01]{4})0000		"JBC      ".cbitaddr($A,$C).",".crel($B)
+# JMPA
+EA	4	([01]{4})0000([01]{16})			"JMPA     ".ccc($A).",".ccaddr($B)
+# JMPI
+9C	2	([01]{4})([01]{4})			"JMPI     ".ccc($A).",[".cRw($B)."]"
+# JMPR
+0D	2	([01]{8})				"JMPR     ".ccc("0000").",".crel($A)
+1D	2	([01]{8})				"JMPR     ".ccc("0001").",".crel($A)
+2D	2	([01]{8})				"JMPR     ".ccc("0010").",".crel($A)
+3D	2	([01]{8})				"JMPR     ".ccc("0011").",".crel($A)
+4D	2	([01]{8})				"JMPR     ".ccc("0100").",".crel($A)
+5D	2	([01]{8})				"JMPR     ".ccc("0101").",".crel($A)
+6D	2	([01]{8})				"JMPR     ".ccc("0110").",".crel($A)
+7D	2	([01]{8})				"JMPR     ".ccc("0111").",".crel($A)
+8D	2	([01]{8})				"JMPR     ".ccc("1000").",".crel($A)
+9D	2	([01]{8})				"JMPR     ".ccc("1001").",".crel($A)
+AD	2	([01]{8})				"JMPR     ".ccc("1010").",".crel($A)
+BD	2	([01]{8})				"JMPR     ".ccc("1011").",".crel($A)
+CD	2	([01]{8})				"JMPR     ".ccc("1100").",".crel($A)
+DD	2	([01]{8})				"JMPR     ".ccc("1101").",".crel($A)
+ED	2	([01]{8})				"JMPR     ".ccc("1110").",".crel($A)
+FD	2	([01]{8})				"JMPR     ".ccc("1111").",".crel($A)
+# JMPS
+FA	4	([01]{8})([01]{16})			"JMPS     ".cseg($A)."'".ccaddr($B)
+# JNB
+9A	4	([01]{8})([01]{8})([01]{4})0000		"JNB      ".cbitaddr($A,$C).",".crel($B)
+# JNBS
+BA	4	([01]{8})([01]{8})([01]{4})0000		"JNBS     ".cbitaddr($A,$C).",".crel($B)
+# MOV
+F0	2	([01]{4})([01]{4})			"MOV      ".cRw($A).",".cRw($B)
+E0	2	([01]{4})([01]{4})			"MOV      ".cRw($B).",".cdata4($A)
+E6	4	([01]{8})([01]{16})			"MOV      ".cregw($A).",".cdata16($B)
+A8	2	([01]{4})([01]{4})			"MOV      ".cRw($A).",[".cRw($B)."]"
+98	2	([01]{4})([01]{4})			"MOV      ".cRw($A).",[".cRw($B)."+]"
+B8	2	([01]{4})([01]{4})			"MOV      [".cRw($B)."],".cRw($A)
+88	2	([01]{4})([01]{4})			"MOV      [-".cRw($B)."],".cRw($A)
+C8	2	([01]{4})([01]{4})			"MOV      [".cRw($A)."],[".cRw($B)."]"
+D8	2	([01]{4})([01]{4})			"MOV      [".cRw($A)."+],[".cRw($B)."]"
+E8	2	([01]{4})([01]{4})			"MOV      [".cRw($A)."],[".cRw($B)."+]"
+D4	4	([01]{4})([01]{4})([01]{16})		"MOV      ".cRw($A).",[".cRw($B)."+".cdata16($C)."]"
+C4	4	([01]{4})([01]{4})([01]{16})		"MOV      [".cRw($B)."+".cdata16($C)."],".cRw($A)
+84	4	0000([01]{4})([01]{16})			"MOV      [".cRw($A)."],".cmem($B)
+94	4	0000([01]{4})([01]{16})			"MOV      ".cmem($B).",[".cRw($A)."]"
+F2	4	([01]{8})([01]{16})			"MOV      ".cregw($A).",".cmem($B)
+F6	4	([01]{8})([01]{16})			"MOV      ".cmem($B).",".cregw($A)
+# MOVB
+F1	2	([01]{4})([01]{4})			"MOVB     ".cRb($A).",".cRb($B)
+E1	2	([01]{4})([01]{4})			"MOVB     ".cRb($B).",".cdata4($A)
+E7	4	([01]{8})([01]{16})			"MOVB     ".cregb($A).",".cdata16($B)
+A9	2	([01]{4})([01]{4})			"MOVB     ".cRb($A).",[".cRw($B)."]"
+99	2	([01]{4})([01]{4})			"MOVB     ".cRb($A).",[".cRw($B)."+]"
+B9	2	([01]{4})([01]{4})			"MOVB     [".cRw($B)."],".cRb($A)
+89	2	([01]{4})([01]{4})			"MOVB     [-".cRw($B)."],".cRb($A)
+C9	2	([01]{4})([01]{4})			"MOVB     [".cRw($A)."],[".cRw($B)."]"
+D9	2	([01]{4})([01]{4})			"MOVB     [".cRw($A)."+],[".cRw($B)."]"
+E9	2	([01]{4})([01]{4})			"MOVB     [".cRw($A)."],[".cRw($B)."+]"
+F4	4	([01]{4})([01]{4})([01]{16})		"MOVB     ".cRb($A).",[".cRw($B)."+".cdata16($C)."]"
+E4	4	([01]{4})([01]{4})([01]{16})		"MOVB     [".cRw($B)."+".cdata16($C)."],".cRb($A)
+A4	4	0000([01]{4})([01]{16})			"MOVB     [".cRw($A)."],".cmem($B)
+B4	4	0000([01]{4})([01]{16})			"MOVB     ".cmem($B).",[".cRw($A)."]"
+F3	4	([01]{8})([01]{16})			"MOVB     ".cregb($A).",".cmem($B)
+F7	4	([01]{8})([01]{16})			"MOVB     ".cmem($B).",".cregb($A)
+# MOVBS
+D0	2	([01]{4})([01]{4})			"MOVBS    ".cRw($B).",".cRw($A)
+D2	4	([01]{8})([01]{16})			"MOVBS    ".cregb($A).",".cmem($B)
+D5	4	([01]{8})([01]{16})			"MOVBS    ".cmem($B).",".cregb($A)
+# MOVBZ
+C0	2	([01]{4})([01]{4})			"MOVBZ    ".cRw($B).",".cRw($A)
+C2	4	([01]{8})([01]{16})			"MOVBZ    ".cregb($A).",".cmem($B)
+C5	4	([01]{8})([01]{16})			"MOVBZ    ".cmem($B).",".cregb($A)
+# MUL
+0B	2	([01]{4})([01]{4})			"MUL      ".cRw($A).",".cRw($B)
+# MULU
+1B	2	([01]{4})([01]{4})			"MULU     ".cRw($A).",".cRw($B)
+# NEG
+81	2	([01]{4})0000				"NEG      ".cRw($A)
+# NEGB
+A1	2	([01]{4})0000				"NEGB     ".cRb($A)
+# NOP
+CC	2	00000000				"NOP"
+# OR 
+70	2	([01]{4})([01]{4})			"OR       ".cRw($A).",".cRw($B)
+78	2	([01]{4})10([01]{2})			"OR       ".cRw($A).",[".cRw($B)."]"
+78	2	([01]{4})11([01]{2})			"OR       ".cRw($A).",[".cRw($B)."+]"
+78	2	([01]{4})0([01]{3})			"OR       ".cRw($A).",".cdata3($B)
+76	4	([01]{8})([01]{16})			"OR       ".cregw($A).",".cdata16($B)
+72	4	([01]{8})([01]{16})			"OR       ".cregw($A).",".cmem($B)
+74	4	([01]{8})([01]{16})			"OR       ".cmem($B).",".cregw($A)
+# ORB 
+71	2	([01]{4})([01]{4})			"ORB      ".cRb($A).",".cRb($B)
+79	2	([01]{4})10([01]{2})			"ORB      ".cRb($A).",[".cRw($B)."]"
+79	2	([01]{4})11([01]{2})			"ORB      ".cRb($A).",[".cRw($B)."+]"
+79	2	([01]{4})0([01]{3})			"ORB      ".cRb($A).",".cdata3($B)
+77	4	([01]{8})([01]{16})			"ORB      ".cregb($A).",".cdata16($B)
+73	4	([01]{8})([01]{16})			"ORB      ".cregb($A).",".cmem($B)
+75	4	([01]{8})([01]{16})			"ORB      ".cmem($B).",".cregb($A)
+# PCALL
+E2	4	([01]{8})([01]{16})			"PCALL    ".cregw($A).",".ccaddr($B)
+# POP
+FC	2	([01]{8})				"POP      ".cregw($A)
+# PRIOR
+2B	2	([01]{4})([01]{4})			"PRIOR    ".cRw($A).",".cRw($B)
+# PUSH
+EC	2	([01]{8})				"PUSH     ".cregw($A)
+# PWRDN
+97	4	011010001001011110010111		"PWRDN"
+# RET
+CB	2	00000000				"RET"
+# RETI
+FB	2	10001000				"RETI"
+# RETP
+EB	2	([01]{8})				"RETP     ".cregw($A)
+# RETS
+DB	2	00000000				"RETS"
+# ROL
+0C	2	([01]{4})([01]{4})			"ROL      ".cRw($A).",".cRw($B)
+1C	2	([01]{4})([01]{4})			"ROL      ".cRw($B).",".cdata4($A)
+# ROR
+2C	2	([01]{4})([01]{4})			"ROR      ".cRw($A).",".cRw($B)
+3C	2	([01]{4})([01]{4})			"ROR      ".cRw($B).",".cdata4($A)
+# SCXT
+C6	4	([01]{8})([01]{16})			"SCXT     ".cregw($A).",".cdata16($B)
+D6	4	([01]{8})([01]{16})			"SCXT     ".cregw($A).",".cmem($B)
+# SHL
+4C	2	([01]{4})([01]{4})			"SHL      ".cRw($A).",".cRw($B)
+5C	2	([01]{4})([01]{4})			"SHL      ".cRw($B).",".cdata4($A)
+# SHR
+6C	2	([01]{4})([01]{4})			"SHR      ".cRw($A).",".cRw($B)
+7C	2	([01]{4})([01]{4})			"SHR      ".cRw($B).",".cdata4($A)
+# SRST
+B7	4	010010001011011110110111		"SRST"
+# SRVWDT
+B7	4	010110001010011110100111		"SRVWDT"
+# SUB
+20	2	([01]{4})([01]{4})			"SUB      ".cRw($A).",".cRw($B)
+28	2	([01]{4})10([01]{2})			"SUB      ".cRw($A).",[".cRw($B)."]"
+28	2	([01]{4})11([01]{2})			"SUB      ".cRw($A).",[".cRw($B)."+]"
+28	2	([01]{4})0([01]{3})			"SUB      ".cRw($A).",".cdata3($B)
+26	4	([01]{8})([01]{16})			"SUB      ".cregw($A).",".cdata16($B)
+22	4	([01]{8})([01]{16})			"SUB      ".cregw($A).",".cmem($B)
+24	4	([01]{8})([01]{16})			"SUB      ".cmem($B).",".cregw($A)
+# SUBB
+21	2	([01]{4})([01]{4})			"SUBB     ".cRb($A).",".cRb($B)
+29	2	([01]{4})10([01]{2})			"SUBB     ".cRb($A).",[".cRw($B)."]"
+29	2	([01]{4})11([01]{2})			"SUBB     ".cRb($A).",[".cRw($B)."+]"
+29	2	([01]{4})0([01]{3})			"SUBB     ".cRb($A).",".cdata3($B)
+27	4	([01]{8})([01]{16})			"SUBB     ".cregb($A).",".cdata16($B)
+23	4	([01]{8})([01]{16})			"SUBB     ".cregb($A).",".cmem($B)
+25	4	([01]{8})([01]{16})			"SUBB     ".cmem($B).",".cregb($A)
+# SUBC
+30	2	([01]{4})([01]{4})			"SUBC     ".cRw($A).",".cRw($B)
+38	2	([01]{4})10([01]{2})			"SUBC     ".cRw($A).",[".cRw($B)."]"
+38	2	([01]{4})11([01]{2})			"SUBC     ".cRw($A).",[".cRw($B)."+]"
+38	2	([01]{4})0([01]{3})			"SUBC     ".cRw($A).",".cdata3($B)
+36	4	([01]{8})([01]{16})			"SUBC     ".cregw($A).",".cdata16($B)
+32	4	([01]{8})([01]{16})			"SUBC     ".cregw($A).",".cmem($B)
+34	4	([01]{8})([01]{16})			"SUBC     ".cmem($B).",".cregw($A)
+# SUBCB
+31	2	([01]{4})([01]{4})			"SUBCB    ".cRb($A).",".cRb($B)
+39	2	([01]{4})10([01]{2})			"SUBCB    ".cRb($A).",[".cRw($B)."]"
+39	2	([01]{4})11([01]{2})			"SUBCB    ".cRb($A).",[".cRw($B)."+]"
+39	2	([01]{4})0([01]{3})			"SUBCB    ".cRb($A).",".cdata3($B)
+37	4	([01]{8})([01]{16})			"SUBCB    ".cregb($A).",".cdata16($B)
+33	4	([01]{8})([01]{16})			"SUBCB    ".cregb($A).",".cmem($B)
+35	4	([01]{8})([01]{16})			"SUBCB    ".cmem($B).",".cregb($A)
+# TRAP
+9B	2	([01]{7})0				"TRAP     ".ctrap7($A)
+# XOR
+50	2	([01]{4})([01]{4})			"XOR      ".cRw($A).",".cRw($B)
+58	2	([01]{4})10([01]{2})			"XOR      ".cRw($A).",[".cRw($B)."]"
+58	2	([01]{4})11([01]{2})			"XOR      ".cRw($A).",[".cRw($B)."+]"
+58	2	([01]{4})0([01]{3})			"XOR      ".cRw($A).",".cdata3($B)
+56	4	([01]{8})([01]{16})			"XOR      ".cregw($A).",".cdata16($B)
+52	4	([01]{8})([01]{16})			"XOR      ".cregw($A).",".cmem($B)
+54	4	([01]{8})([01]{16})			"XOR      ".cmem($B).",".cregw($A)
+# XORB
+51	2	([01]{4})([01]{4})			"XORB     ".cRb($A).",".cRb($B)
+59	2	([01]{4})10([01]{2})			"XORB     ".cRb($A).",[".cRw($B)."]"
+59	2	([01]{4})11([01]{2})			"XORB     ".cRb($A).",[".cRw($B)."+]"
+59	2	([01]{4})0([01]{3})			"XORB     ".cRb($A).",".cdata3($B)
+57	4	([01]{8})([01]{16})			"XORB     ".cregb($A).",".cdata16($B)
+53	4	([01]{8})([01]{16})			"XORB     ".cregb($A).",".cmem($B)
+55	4	([01]{8})([01]{16})			"XORB     ".cmem($B).",".cregb($A)

@@ -1,0 +1,24 @@
+#
+# c166 condition codes
+#
+# Derived from m166ism.pdf - Instruction Set Manual for the
+# C16x Family of Siemens 16-Bit CMOS Single-Chip Microcontrollers
+# Instruction Set Manual Version 1.2, 12.97
+#
+
+0000	CC_UC
+0001	CC_NET
+0010	CC_Z
+0011	CC_NZ
+0100	CC_V
+0101	CC_NV
+0110	CC_N
+0111	CC_NN
+1000	CC_C
+1001	CC_NC
+1010	CC_SGT
+1011	CC_SLE
+1100	CC_SLT
+1101	CC_SGE
+1110	CC_UGT
+1111	CC_ULE
