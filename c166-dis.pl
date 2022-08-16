@@ -137,7 +137,7 @@ sub cregw {
 sub cmem {
 	$tmp=shift();
 	$tmp=substr($tmp,8,8).substr($tmp,0,8);
-	return sprintf "0x0000%s%s",map { sprintf "%.2X",ord($_) } split //, pack("B*",$tmp);
+	return sprintf "0x%s%s",map { sprintf "%.2X",ord($_) } split //, pack("B*",$tmp);
 }
 
 # cbitaddr(QQ,q)        -
