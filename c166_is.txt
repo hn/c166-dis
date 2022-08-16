@@ -138,7 +138,7 @@ AB	2	([01]{4})([01]{4})			"CALLI    ".ccc($A).",[".cRw($B)."]"
 # CALLR
 BB	2	([01]{8})				"CALLR    ".crel($A)
 # CALLS
-DA	4	([01]{8})([01]{16})			"CALLS    ".cseg($A)."'".ccaddr($B)
+DA	4	([01]{8})([01]{16})			"CALLS    ".cseg($A).",".ccaddr($B)
 # CMP
 40	2	([01]{4})([01]{4})			"CMP      ".cRw($A).",".cRw($B)
 48	2	([01]{4})10([01]{2})			"CMP      ".cRw($A).",[".cRw($B)."]"
