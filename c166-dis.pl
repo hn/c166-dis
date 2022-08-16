@@ -96,7 +96,7 @@ sub cRw {
 # cRb(n)		bGPR: RL0, RH0, RL1, ... RH7
 sub cRb {
 	$tmp=shift();
-	if ( substr($tmp,7,1) == "0" ) {
+	if ( substr($tmp,3,1) == "0" ) {
 		$tmpo="RL";
 	} else {
 		$tmpo="RH";
