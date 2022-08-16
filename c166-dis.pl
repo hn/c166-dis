@@ -192,7 +192,7 @@ sub ccaddr {
 
 # cseg(SS)
 sub cseg {
-	return sprintf "\#0x%.2X",ord(pack("B*",shift()));
+	return sprintf "0x%.2X",ord(pack("B*",shift()));
 }
 
 # crel(rr)
