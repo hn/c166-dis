@@ -195,10 +195,10 @@ DC	2	11([01]{2})([01]{4})			"EXTPR    ".cRw($B).",".cirang2($A)
 D7	4	11([01]{2})([01]{4})			"INCOMPLETE EXTPR     ".cRw($B).",".cirang2($A)
 # EXTS
 DC	2	00([01]{2})([01]{4})			"EXTS     ".cRw($B).",".cirang2($A)
-D7	4	00([01]{2})0000([01]{8})00000000	"EXTS     ".cseg($B)."'".cirang2($A)
+D7	4	00([01]{2})0000([01]{8})00000000	"EXTS     "."#".cseg($B).",".cirang2($A)
 # EXTSR
 DC	2	10([01]{2})([01]{4})			"EXTSR    ".cRw($B).",".cirang2($A)
-D7	4	10([01]{2})0000([01]{8})00000000	"EXTSR    ".cseg($B)."'".cirang2($A)
+D7	4	10([01]{2})0000([01]{8})00000000	"EXTSR    "."#".cseg($B).",".cirang2($A)
 # IDLE
 87	4	011110001000011110000111		"IDLE"
 # JB
@@ -227,7 +227,7 @@ DD	2	([01]{8})				"JMPR     ".ccc("1101").",".crel($A)
 ED	2	([01]{8})				"JMPR     ".ccc("1110").",".crel($A)
 FD	2	([01]{8})				"JMPR     ".ccc("1111").",".crel($A)
 # JMPS
-FA	4	([01]{8})([01]{16})			"JMPS     ".cseg($A)."'".ccaddr($B)
+FA	4	([01]{8})([01]{16})			"JMPS     ".cseg($A).",".ccaddr($B)
 # JNB
 9A	4	([01]{8})([01]{8})([01]{4})0000		"JNB      ".cbitaddr($A,$C).",".crel($B)
 # JNBS
