@@ -23,9 +23,10 @@
 # with this program. If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
 #
 
-$fileIS="c166_is.txt";
-$fileCC="c166_cc.txt";
-$fileSFR="c166_sfr.txt";
+use FindBin qw($RealBin);
+$fileIS="$RealBin/c166_is.txt";
+$fileCC="$RealBin/c166_cc.txt";
+$fileSFR="$RealBin/c166_sfr.txt";
 
 ###############################################################################
 # Read opcodes

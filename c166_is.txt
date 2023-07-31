@@ -267,12 +267,12 @@ B4	4	0000([01]{4})([01]{16})			"MOVB     ".cmem($B).",[".cRw($A)."]"
 F3	4	([01]{8})([01]{16})			"MOVB     ".cregb($A).",".cmem($B)
 F7	4	([01]{8})([01]{16})			"MOVB     ".cmem($B).",".cregb($A)
 # MOVBS
-D0	2	([01]{4})([01]{4})			"MOVBS    ".cRw($B).",".cRw($A)
-D2	4	([01]{8})([01]{16})			"MOVBS    ".cregb($A).",".cmem($B)
+D0	2	([01]{4})([01]{4})			"MOVBS    ".cRw($B).",".cRb($A)
+D2	4	([01]{8})([01]{16})			"MOVBS    ".cregw($A).",".cmem($B)
 D5	4	([01]{8})([01]{16})			"MOVBS    ".cmem($B).",".cregb($A)
 # MOVBZ
-C0	2	([01]{4})([01]{4})			"MOVBZ    ".cRw($B).",".cRw($A)
-C2	4	([01]{8})([01]{16})			"MOVBZ    ".cregb($A).",".cmem($B)
+C0	2	([01]{4})([01]{4})			"MOVBZ    ".cRw($B).",".cRb($A)
+C2	4	([01]{8})([01]{16})			"MOVBZ    ".cregw($A).",".cmem($B)
 C5	4	([01]{8})([01]{16})			"MOVBZ    ".cmem($B).",".cregb($A)
 # MUL
 0B	2	([01]{4})([01]{4})			"MUL      ".cRw($A).",".cRw($B)
